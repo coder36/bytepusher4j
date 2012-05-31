@@ -1,15 +1,8 @@
 package coder36;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.SourceDataLine;
+import java.awt.event.*;
+import java.awt.image.*;
+import javax.sound.sampled.*;
 
 /**
  * AWT / javax.sound implementation of BytePusherUIDriver 

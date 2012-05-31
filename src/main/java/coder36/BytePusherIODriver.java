@@ -6,7 +6,7 @@ package coder36;
  */
 public interface BytePusherIODriver {
 	  /**
-	   * Get the current pressed key (0-9 A-F
+	   * Get the current pressed key (0-9 A-F)
 	  */
 	  short getKeyPress();
 

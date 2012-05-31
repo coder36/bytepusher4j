@@ -24,7 +24,7 @@ public class BytePusher extends JFrame {
 	private FrameTask emuTask;
 	private int freq = 60;
 	private FrameRate fr = new FrameRate();
-	private String romsFolder = System.getProperty("user.dir") + "/roms";//"/bytepusher/roms";
+	private String romsFolder = System.getProperty("user.dir") + "/roms";
 	private int romIndex;
 	private String rom;
 	private KeyEvent keyPress;
