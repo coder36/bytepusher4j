@@ -1,0 +1,15 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+task zip(type: Zip) {
+	from(jar.outputs.files) {
+	  into('bytepusher/lib')
+	}
+	from('roms') {
+	  into('bytepusher/roms')
+	}
+	from('src/bin') {
+	  into('bytepusher')
+	  fileMode(0755)
+	}
+}
