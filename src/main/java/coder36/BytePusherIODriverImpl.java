@@ -108,7 +108,7 @@ public class BytePusherIODriverImpl extends KeyAdapter implements BytePusherIODr
      * Get the image
      * @return the bufferedImage
      */
-    public BufferedImage getImage() {
+    public BufferedImage getDisplayImage() {
     	return image;
     }
 }

@@ -1,17 +1,18 @@
 package coder36;
 
-import java.util.*;
-import java.util.List;
 import java.util.Timer;
+import java.util.List;
+import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 
 /**
- * Bytepusher implementation using java's Swing framework
+ * Bytepusher implementation using the java Swing framework
  * @author Mark Middleton
  */
+@SuppressWarnings("serial")
 public class BytePusher extends JFrame {
 
 	private BytePusherVM vm;
@@ -21,7 +22,7 @@ public class BytePusher extends JFrame {
 	private boolean paused;
 	private boolean hideInfo;
 	private Canvas c;
-	private FrameTask emuTask;
+	private FrameTask frameTask;
 	private int freq = 60;
 	private FrameRate fr = new FrameRate();
 	private String romsFolder = System.getProperty("user.dir") + "/roms";
@@ -92,11 +93,26 @@ public class BytePusher extends JFrame {
 		String [] l = getRoms();
 		if ( l.length != 0 ) {
 			rom = l[0];
-			vm.load( rom );
+			loadRom( rom );
 		}
 		
 		// startup vm
 		setFrequency(freq);			
+	}
+	
+	/**
+	 * Load ROM into VM.  
+	 * @param rom
+	 */
+	private void loadRom( String rom ) {
+		try {
+			FileInputStream fis = new FileInputStream( rom );
+			vm.load( fis );
+			fis.close();
+		}
+		catch( IOException e ) {
+			throw new RuntimeException( e );
+		}
 	}
 	
 	/**
@@ -105,10 +121,10 @@ public class BytePusher extends JFrame {
 	 */
 	private void setFrequency( int f ) {
 		// cancel any previous tasks
-		if ( emuTask != null ) emuTask.cancel();
+		if ( frameTask != null ) frameTask.cancel();
 		// create new task
-		emuTask = new FrameTask();
-		new Timer().schedule(emuTask, 0, 1000/freq);
+		frameTask = new FrameTask();
+		new Timer().schedule(frameTask, 0, 1000/freq);
 	}
 	
 	/**
@@ -171,7 +187,7 @@ public class BytePusher extends JFrame {
 						romIndex++;
 					}
 					rom = l[romIndex];
-					vm.load( rom );				
+					loadRom( rom );				
 				}
 				break;
 			case KeyEvent.VK_LEFT:
@@ -181,7 +197,7 @@ public class BytePusher extends JFrame {
 	                   	romIndex--;
 	                }
 	                rom = l[romIndex]; 
-	                vm.load(rom);
+	                loadRom( rom );
 	            }
 	            break;
 		}
@@ -257,7 +273,7 @@ public class BytePusher extends JFrame {
 				Graphics g = c.getBufferStrategy().getDrawGraphics();
 				Font font = new Font("Courier New", Font.PLAIN, 12);
 				g.setFont(font);					
-				g.drawImage(driver.getImage(), 0, 0, c.getWidth(), c.getHeight(), null);				
+				g.drawImage(driver.getDisplayImage(), 0, 0, c.getWidth(), c.getHeight(), null);				
 				// render text to screen
 				g.setColor(Color.WHITE);
 				drawHelp( g );
