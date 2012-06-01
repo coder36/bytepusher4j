@@ -18,15 +18,15 @@ public class BytePusherIODriverImpl extends KeyAdapter implements BytePusherIODr
 	 * Initializes the audio system
 	 */
 	public BytePusherIODriverImpl() {
-		try {		
+		try {
 			AudioFormat f = new AudioFormat(15360, 8, 1, true, false );
 			line = AudioSystem.getSourceDataLine(f);
 			line.open();
-			line.start();		
+			line.start();
 		}
-		catch( Exception e ) {
-			throw new RuntimeException( e );
-		}		
+		catch( LineUnavailableException l ) {
+			throw new RuntimeException( l );
+		}	
 	}
 	
 	/**
