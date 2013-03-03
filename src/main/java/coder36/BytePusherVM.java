@@ -35,7 +35,9 @@ public class BytePusherVM {
 	 * @param rom
 	 */
 	public void load(InputStream rom) throws IOException {
-		mem = new char[0xFFFFFF];
+		for ( int i=0; i < mem.length; i++ ) {
+			mem[i] = 0;
+		}
 		int pc = 0;
 		int i = 0;
 		while ((i = rom.read()) != -1) {
